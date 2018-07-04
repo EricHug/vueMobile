@@ -6,7 +6,7 @@
       </p>
       <div class="calendar">
         <ul>
-          <li v-for="item in curMonthTotalDays" :key="item" :class="[activeCircle==item-1?'on':'',staredList.includes(item)?'star':'']" @click="triggerDate(item)">
+          <li v-for="item in curMonthTotalDays" :key="item" :class="[activeCircle==item?'on':'',staredList.includes(item)?'star':'']" @click="triggerDate(item)">
             <span v-if="item==curDate">
               今
             </span>
@@ -24,29 +24,32 @@
       <!-- <swiper class="biaoqian" :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" :show-dots="false" :aspect-ratio="1.17333" :show-desc-mask="false"></swiper> -->
       <swiper class="biaoqian" v-model="demo01_index" @on-index-change="demo01_onIndexChange" :show-dots="false" :aspect-ratio="1.17333" :show-desc-mask="false">
         <swiper-item class="white tagItem" v-for="(item) in demo01_list" :key="item.id">
-          <h2 class="cur_title">{{item.title}}</h2>
-          <div class="tag_pic_box">
-            <img :src="item.img" :alt="item.title" class="tagPicItem">
-          </div>
-          <div class="tag_bottom">
-            <p>1111111111111</p>
-            <p>--帅</p>
-            <p>《一个人的战斗》</p>
-          </div>
+          <div class="sw-container">
+            <h2 class="cur_title">{{item.title}}</h2>
+            <p class="cur_title_cg">{{item.nl}}</p>
+              <div class="tag_pic_box">
+                <img :src="item.img" :alt="item.title" class="tagPicItem">
+              </div>
+              <div class="tag_bottom">
+                <p class="tag_sentence">而是整个战斗，他一个人的力量背后，其实是广大人民群众的力量。其实是广大人民群众的而是整个众，人民群众的而是整个众。</p>
+                <p class="tag_author">- 莱奥纳多琴，书友</p>
+                <p class="tag_bk_name">《一个人的战斗》</p>
+              </div>
+              </div>
         </swiper-item>
       </swiper>
       <x-button @click.native="demo01_index--" :class="['biaoqian_btn_left',demo01_index==0?'disabled':'']" :disabled="demo01_index==0"></x-button>
       <x-button @click.native="demo01_index++" :class="['biaoqian_btn_right',demo01_index==curDate-1?'disabled':'']" :disabled="demo01_index==curDate-1"></x-button>
     </div>
-    <button @click="saveCurPic">
+    <x-button class="saveBtn" @click.native="saveCurPic">
       <span class="biaoqian_btn_download"></span>
       保存图片
-      </button>
+    </x-button>
   </div>
 </template>
 
 <script>
-import img from "../../assets/imgs/biaoqian.png";
+import img from "../../assets/imgs/tag_1.png";
 export default {
   components: {},
   name: "login",
@@ -89,6 +92,7 @@ export default {
         let curDate = this.prefixInteger(i+1, 2)
         biaoqian_list.push({
           id: i,
+          nl: '戊戌年 戊午月 已末日',
           url: "javascript:",
           img: img,
           title: `${curDate}/${curMonth}`
@@ -98,7 +102,7 @@ export default {
     },
     demo01_onIndexChange(index) {
       this.demo01_index = index;
-      this.activeCircle = index;
+      this.activeCircle = index + 1;
     },
     mGetDate() {
       var date = new Date();
@@ -110,6 +114,8 @@ export default {
     triggerDate(item) {
       if (item <= this.curDate) {
         this.demo01_index = item - 1;
+      }else{
+        return false;
       }
       this.activeCircle = item;
     },
@@ -144,7 +150,8 @@ export default {
 <style lang="less" scoped>
 .comm_container {
   width: 100%;
-  background-color: #27292b;
+  height: 100%;
+  background: #f3f3f3;
   .cal_top {
     padding-left: 50px;
     line-height: 56px;
@@ -158,10 +165,13 @@ export default {
   }
   .top_tit {
     padding-top: 32px;
+    margin-bottom: 30px;
     color: #fff;
     font-size: 30px;
     height: 200px;
     box-sizing: border-box;
+    background-color: #27292b;
+    box-shadow: 0 5px 18px rgba(0,0,0,.1);
   }
   .calendar {
     padding-top: 12px;
@@ -183,6 +193,7 @@ export default {
         width: 64px;
         height: 64px;
         line-height: 64px;
+        margin: 0 auto;
       }
       &.on {
         span {
@@ -196,12 +207,12 @@ export default {
           &:after {
             content: "";
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            bottom: 0;
+            bottom: -2px;
             left: 50%;
-            margin-left: -2px;
+            margin-left: -4px;
             background-color: #c19b5c;
           }
         }
@@ -210,20 +221,60 @@ export default {
   }
   .show_box {
     position: relative;
-    background: #fff;
   }
   .biaoqian {
     .tagItem{
       width:750px;
-      height:880px;
+      height:850px;
+      .sw-container{
+        width:638px;
+        height:820px;
+        margin-top:30px;
+        position:relative;
+        margin:0 auto;
+        box-shadow: 0 8px 30px rgba(0,0,0,.1);
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+      }
       .cur_title{
+        position:absolute;
+        top:16px;
         color:#fff;
+        font-size: 72px;
+        padding-left: 50px;
+        font-weight: normal;
+        font-style: normal;
+      }
+      .cur_title_cg{
+        position:absolute;
+        top:116px;
+        font-size: 20px;
+        color:#fff;
+        padding-left: 50px;
       }
       .tag_pic_box{
-
+        width:100%;height:558px;
+        margin:0 auto;
+        overflow: hidden;
+        img{
+          width:100%;
+          height:100%;
+        }
       }
       .tag_bottom{
-
+        padding:10px 34px;
+        .tag_author,.tag_bk_name{
+          font-size: 20px;
+          color:#666;
+          text-align: right;
+        }
+        .tag_sentence{
+          padding:6px 0;
+          color:#666;
+          font-size: 28px;
+          line-height: 48px;
+        }
       }
     }
   }
@@ -262,11 +313,25 @@ export default {
     }
   }
   .biaoqian_btn_download{
+    display: inline-block;
     width: 28px;
     height: 28px;
+    vertical-align: middle;
     background: url("../../assets/imgs/spr_pic.png") no-repeat;
     background-position: -139px 0;
     background-size: 167px 250px;
+  }
+  .saveBtn{
+    position: relative;
+    width:240px;height:80px;
+    margin:0 auto;
+    line-height: 80px;text-align: center;
+    z-index: 11;
+    background-color: #fff;
+    box-shadow: 0 8px 30px rgba(0,0,0,.1);
+    color:#393939;
+    font-size: 28px;
+    border-radius:40px;
   }
 }
 </style>
