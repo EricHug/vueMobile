@@ -22,7 +22,7 @@
     </div>
     <div class="show_box">
       <!-- <swiper class="biaoqian" :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange" :show-dots="false" :aspect-ratio="1.17333" :show-desc-mask="false"></swiper> -->
-      <swiper class="biaoqian" v-model="demo01_index" @on-index-change="demo01_onIndexChange" :show-dots="false" :aspect-ratio="1.17333" :show-desc-mask="false">
+      <swiper class="biaoqian" v-model="demo01_index" @on-index-change="demo01_onIndexChange" :show-dots="false" :aspect-ratio="1.13333" :show-desc-mask="false">
         <swiper-item class="white tagItem" v-for="(item) in demo01_list" :key="item.id">
           <div class="sw-container">
             <h2 class="cur_title">{{item.title}}</h2>
@@ -225,7 +225,7 @@ export default {
   .biaoqian {
     .tagItem{
       width:750px;
-      height:850px;
+      height:820px;
       .sw-container{
         width:638px;
         height:820px;
