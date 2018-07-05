@@ -151,6 +151,7 @@ export default {
 .comm_container {
   width: 100%;
   height: 100%;
+  padding-bottom:20px;
   background: #f3f3f3;
   .cal_top {
     padding-left: 50px;
@@ -174,9 +175,14 @@ export default {
     box-shadow: 0 5px 18px rgba(0,0,0,.1);
   }
   .calendar {
-    padding-top: 12px;
+    margin-top:4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     height: 88px;
     ul {
+      -webkit-overflow-scrolling: touch;
+      padding:4px 0;
+      overflow-y: hidden;
       overflow-x: scroll;
       &::-webkit-scrollbar {
         display: none;

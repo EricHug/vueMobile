@@ -6,13 +6,7 @@
 
 <script>
 export default {
-  name: 'App',
-  mounted(){
-    let self = this
-    this.$nextTick(()=>{
-      self.$refs.app.style.height = window.outerHeight+'px'
-    })
-  }
+  name: 'App'
 }
 </script>
 
